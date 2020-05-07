@@ -2,7 +2,7 @@
 //  SceneDelegate.swift
 //  AutoLocalizable
 //
-//  Created by zowell on 2020/5/6.
+//  Created by c70n2c on 2020/5/6.
 //  Copyright © 2020 Chancc. All rights reserved.
 //
 

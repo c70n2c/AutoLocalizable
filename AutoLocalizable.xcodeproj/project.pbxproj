@@ -3,19 +3,22 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		242922B62463D03E00AEF5CC /* C70n2cAutoLocalizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242922B52463D03E00AEF5CC /* C70n2cAutoLocalizable.swift */; };
 		2481A8D82462B8800089CACE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2481A8D72462B8800089CACE /* AppDelegate.swift */; };
 		2481A8DA2462B8800089CACE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2481A8D92462B8800089CACE /* SceneDelegate.swift */; };
 		2481A8DC2462B8800089CACE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2481A8DB2462B8800089CACE /* ViewController.swift */; };
 		2481A8DF2462B8800089CACE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2481A8DD2462B8800089CACE /* Main.storyboard */; };
 		2481A8E12462B8890089CACE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2481A8E02462B8890089CACE /* Assets.xcassets */; };
 		2481A8E42462B8890089CACE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2481A8E22462B8890089CACE /* LaunchScreen.storyboard */; };
+		2481A8ED2462BA1E0089CACE /* CoreXLSX in Frameworks */ = {isa = PBXBuildFile; productRef = 2481A8EC2462BA1E0089CACE /* CoreXLSX */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		242922B52463D03E00AEF5CC /* C70n2cAutoLocalizable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = C70n2cAutoLocalizable.swift; sourceTree = "<group>"; };
 		2481A8D42462B8800089CACE /* AutoLocalizable.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AutoLocalizable.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2481A8D72462B8800089CACE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2481A8D92462B8800089CACE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -31,6 +34,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2481A8ED2462BA1E0089CACE /* CoreXLSX in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,6 +63,7 @@
 				2481A8D72462B8800089CACE /* AppDelegate.swift */,
 				2481A8D92462B8800089CACE /* SceneDelegate.swift */,
 				2481A8DB2462B8800089CACE /* ViewController.swift */,
+				242922B52463D03E00AEF5CC /* C70n2cAutoLocalizable.swift */,
 				2481A8DD2462B8800089CACE /* Main.storyboard */,
 				2481A8E02462B8890089CACE /* Assets.xcassets */,
 				2481A8E22462B8890089CACE /* LaunchScreen.storyboard */,
@@ -83,6 +88,9 @@
 			dependencies = (
 			);
 			name = AutoLocalizable;
+			packageProductDependencies = (
+				2481A8EC2462BA1E0089CACE /* CoreXLSX */,
+			);
 			productName = AutoLocalizable;
 			productReference = 2481A8D42462B8800089CACE /* AutoLocalizable.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +119,9 @@
 				Base,
 			);
 			mainGroup = 2481A8CB2462B8800089CACE;
+			packageReferences = (
+				2481A8EB2462BA1E0089CACE /* XCRemoteSwiftPackageReference "CoreXLSX" */,
+			);
 			productRefGroup = 2481A8D52462B8800089CACE /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -138,6 +149,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				242922B62463D03E00AEF5CC /* C70n2cAutoLocalizable.swift in Sources */,
 				2481A8DC2462B8800089CACE /* ViewController.swift in Sources */,
 				2481A8D82462B8800089CACE /* AppDelegate.swift in Sources */,
 				2481A8DA2462B8800089CACE /* SceneDelegate.swift in Sources */,
@@ -338,6 +350,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		2481A8EB2462BA1E0089CACE /* XCRemoteSwiftPackageReference "CoreXLSX" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/MaxDesiatov/CoreXLSX.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.10.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2481A8EC2462BA1E0089CACE /* CoreXLSX */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2481A8EB2462BA1E0089CACE /* XCRemoteSwiftPackageReference "CoreXLSX" */;
+			productName = CoreXLSX;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 2481A8CC2462B8800089CACE /* Project object */;
 }
