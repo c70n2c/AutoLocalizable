@@ -54,10 +54,6 @@ class C70n2cAutoLocalizable: NSObject {
                 let IDString = worksheet?.cells(atColumns: [ColumnReference("A")!], rows: [row]).first?.stringValue(sharedStrings)
                 var valueString = worksheet?.cells(atColumns: [ColumnReference(columnString)!], rows: [row]).first?.stringValue(sharedStrings)
                 if IDString != valueString, row != 1 {
-                    /// 清除字符串中的空格
-                    if let a = valueString?.contains(" "), a {
-                        valueString = valueString?.replacingOccurrences(of: " ", with: "")
-                    }
                     /// " ' 加转义符号\
                     if let a = valueString?.contains("\""), a {
                         if let a = valueString?.contains("\\\""), a {
