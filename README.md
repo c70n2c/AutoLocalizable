@@ -1,5 +1,5 @@
 ### AutoLocalizable
-自动读取xlsx导出国际化Localizable.strings
+iOS 国际化工具，读取xlsx导出国际化Localizable.strings
 
 ### 使用方法，请在电脑模拟器上跑
 1. 将 1.xlsx 复制到桌面，这是一个对照表做了如下操作
