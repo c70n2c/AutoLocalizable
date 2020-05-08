@@ -8,11 +8,7 @@
 
 import UIKit
 import CoreXLSX
-/** 模拟器上跑 222.xlsx 复制到桌面
- 1、清除表格多余的行与列(没用到的)
- 2、清除表格所有内容的格式
- 3、表格只能有一张（Sheet1）
- */
+
 /// 输入文件路径
 let sourcePath = "/Users/chancc/Desktop/1.xlsx"
 /// 输出路径
