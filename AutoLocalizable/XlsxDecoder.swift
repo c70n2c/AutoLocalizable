@@ -1,52 +1,49 @@
 //
-//  C70n2cAutoLocalizable.swift
+//  XlsxDecoder.swift
 //  AutoLocalizable
 //
-//  Created by c70n2c on 2020/5/7.
+//  Created by Chancc on 2020/5/8.
 //  Copyright © 2020 Chancc. All rights reserved.
 //
+
 import UIKit
 import CoreXLSX
-
+/** 模拟器上跑 222.xlsx 复制到桌面
+ 1、清除表格多余的行与列(没用到的)
+ 2、清除表格所有内容的格式
+ 3、表格只能有一张（Sheet1）
+ */
 /// 输入文件路径
-let sourcePath = "/Users/zowell/Desktop/222.xlsx"
+let sourcePath = "/Users/chancc/Desktop/1.xlsx"
 /// 输出路径
-let wirtePath = "/Users/zowell/Desktop/"
+let wirtePath = "/Users/chancc/Desktop/"
 
-class C70n2cAutoLocalizable: NSObject {
+class XlsxDecoder: NSObject {
     
-    public static func xlsxDecoder() {
+    public static func decoder() {
+        
         guard let file = XLSXFile(filepath: sourcePath) else {
             fatalError("XLSX file corrupted or does not exist")
         }
+        guard let sharedStrings = try? file.parseSharedStrings() else {
+            fatalError("SharedStrings ❌❌❌")
+        }
         let path = try? file.parseWorksheetPaths()
         let worksheet = try? file.parseWorksheet(at: path?.first ?? "")
-        guard let sharedStrings = try? file.parseSharedStrings() else {
-            fatalError("sharedStrings ❌❌❌")
-        }
         
-        var newValue: [CellReference] = []
-        for row in worksheet?.data?.rows ?? [] {
-            for c in row.cells {
-                if let _ = c.stringValue(sharedStrings) {
-                    newValue += [c.reference]
-                }
-            }
-        }
-        
-        guard let lastColumn = newValue.last?.column.value, let lastRow = newValue.last?.row else {
+        guard let lastColumn = worksheet?.data?.rows.last?.cells.last?.reference.column.value, let lastRow = worksheet?.data?.rows.last?.cells.last?.reference.row else {
             fatalError("Column && Row ❌❌❌")
         }
+        
         let columnInt = (lastColumn as NSString).character(at: 0)
         for column in 65...columnInt {
             let columnString = String(format: "%c", column)
             if columnString == "A" { continue }
             
             let lanString = worksheet?.cells(atColumns: [ColumnReference(String(format: "%c", column))!], rows: [1]).first?.stringValue(sharedStrings)
-            print("==================\(lanString ?? "❌")==================")
-            
+            print("================== \(lanString ?? "❌") ==================")
             /// 文件名 lanString 不规范，规范后可以直接写出指定文件名输出
-            let fileURL = URL(fileURLWithPath: wirtePath + "\(column).strings")
+            let fileURL = URL(fileURLWithPath: wirtePath + "\(columnString).strings")
             var data: Data? = Data()
             data?.append("//\(lanString ?? "") \r\n".data(using: .utf8) ?? Data())
             
@@ -79,8 +76,7 @@ class C70n2cAutoLocalizable: NSObject {
     }
     
     
-    
-    //csv , 太多 有些字符串无法判断，因此写的有问题
+   //csv , 太多 有些字符串无法判断，因此写的有问题
     func csv() {
         //let fileContent = try? String(contentsOfFile: Bundle.main.path(forResource: fileName, ofType: "") ?? "")
         let fileContent = try? String(contentsOfFile: sourcePath)
@@ -111,8 +107,4 @@ class C70n2cAutoLocalizable: NSObject {
         }
     }
     
-    
-    
-    
 }
-
