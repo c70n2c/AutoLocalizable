@@ -1,4 +1,4 @@
-#### AutoLocalizable
+### AutoLocalizable
 自动读取xlsx导出国际化Localizable.strings
 
 ### 电脑模拟器上跑，将222.xlsx 复制到桌面，然后设置：
