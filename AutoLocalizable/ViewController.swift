@@ -8,12 +8,12 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, XlsxDecoder {
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        XlsxDecoder.decoder()
+        decoder()
         
     }
     

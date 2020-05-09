@@ -14,10 +14,14 @@ let sourcePath = "/Users/chancc/Desktop/1.xlsx"
 /// 输出路径
 let wirtePath = "/Users/chancc/Desktop/"
 
-class XlsxDecoder: NSObject {
+protocol XlsxDecoder {
+    func decoder()
+}
+
+extension XlsxDecoder {
     
-    public static func decoder() {
-        
+    /// 解析 xlsx 生成 .strings 文件
+    func decoder() {
         guard let file = XLSXFile(filepath: sourcePath) else {
             fatalError("XLSX file corrupted or does not exist")
         }
@@ -70,37 +74,4 @@ class XlsxDecoder: NSObject {
             print("😀😀😀😀😀😀😀😀😀😀😀 结束")
         }
     }
-    
-    
-   //csv , 太多 有些字符串无法判断，因此写的有问题
-    func csv() {
-        //let fileContent = try? String(contentsOfFile: Bundle.main.path(forResource: fileName, ofType: "") ?? "")
-        let fileContent = try? String(contentsOfFile: sourcePath)
-        if var values = fileContent?.components(separatedBy: ",,,,,,,,,,,\r\n"), var languages = values.first?.components(separatedBy: ",") {
-            values.removeAll(where: {$0 == ""})
-            values.removeFirst()
-            var newValues: [[String]] = []
-            for value in values {
-                var keyValues = value.components(separatedBy: ",")
-                keyValues.removeAll(where: {$0 == ""})
-                newValues += [keyValues]
-            }
-            languages.removeFirst()
-            languages.removeAll(where: {$0 == ""})
-            for (i, language) in languages.enumerated() {
-                for (j, values) in newValues.enumerated() where values.first ?? "" != newValues[j][i] {
-                    
-                    if newValues[j][i].contains("\"") {
-                        newValues[j][i].removeAll(where: {$0 == "\""})
-                    }
-                    if newValues[j][i].contains("\n") {
-                        newValues[j][i].removeAll(where: {$0 == "\n"})
-                    }
-                    print("\"\(values.first ?? "❌")\" = \"\(newValues[j][i])\";")
-                }
-                print("====================== \(language) ======================")
-            }
-        }
-    }
-    
 }
