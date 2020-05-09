@@ -10,9 +10,9 @@ import UIKit
 import CoreXLSX
 
 /// 输入文件路径
-let sourcePath = "/Users/chancc/Desktop/1.xlsx"
+let sourcePath = "/Users/zowell/Desktop/1.xlsx"
 /// 输出路径
-let wirtePath = "/Users/chancc/Desktop/"
+let wirtePath = "/Users/zowell/Desktop/"
 
 protocol XlsxDecoder {
     func decoder()
@@ -40,10 +40,13 @@ extension XlsxDecoder {
             let columnString = String(format: "%c", column)
             if columnString == "A" { continue }
             
-            let lanString = worksheet?.cells(atColumns: [ColumnReference(String(format: "%c", column))!], rows: [1]).first?.stringValue(sharedStrings)
+            var lanString = worksheet?.cells(atColumns: [ColumnReference(String(format: "%c", column))!], rows: [1]).first?.stringValue(sharedStrings)
             print("================== \(lanString ?? "❌") ==================")
             /// 文件名 lanString 不规范，规范后可以直接写出指定文件名输出
-            let fileURL = URL(fileURLWithPath: wirtePath + "\(columnString).strings")
+            if let a = lanString?.contains("/"), a{
+                lanString = lanString?.replacingOccurrences(of: "/", with: "")
+            }
+            let fileURL = URL(fileURLWithPath: wirtePath + "\(lanString ?? columnString).strings")
             var data: Data? = Data()
             data?.append("//\(lanString ?? "") \r\n".data(using: .utf8) ?? Data())
             
