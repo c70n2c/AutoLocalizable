@@ -12,11 +12,11 @@ import CoreXLSX
 /*
  
  使用方法，请在电脑模拟器上跑 （README1、README2）
-
+ 
  1、将 1.xlsx 复制到桌面，这是一个对照表做了如下操作
-    * 清除表格多余的行与列(没用到的行与列)
-    * 全选（cmd + a），清除表格所有内容的格式
-    * 只能有一张（Sheet1）表格
+ * 清除表格多余的行与列(没用到的行与列)
+ * 全选（cmd + a），清除表格所有内容的格式
+ * 只能有一张（Sheet1）表格
  2、设置输入文件路径 let sourcePath = "/Users/xxx/Desktop/1.xlsx"
  3、设置输出路径 let wirtePath = "/Users/xxx/Desktop/"
  */
@@ -53,7 +53,7 @@ extension XlsxDecoder {
             if columnString == "A" { continue }
             
             var lanString = worksheet?.cells(atColumns: [ColumnReference(String(format: "%c", column))!], rows: [1]).first?.stringValue(sharedStrings)
-            print("================== \(lanString ?? "❌") ==================")
+            print("------ \(lanString ?? "❌") ------")
             /// 文件名 lanString 不规范，规范后可以直接写出指定文件名输出
             if let a = lanString?.contains("/"), a{
                 lanString = lanString?.replacingOccurrences(of: "/", with: "")
@@ -64,29 +64,33 @@ extension XlsxDecoder {
             
             for row in 1...lastRow {
                 let IDString = worksheet?.cells(atColumns: [ColumnReference("A")!], rows: [row]).first?.stringValue(sharedStrings)
-                var valueString = worksheet?.cells(atColumns: [ColumnReference(columnString)!], rows: [row]).first?.stringValue(sharedStrings)
-                if IDString != valueString, row != 1 {
-                    /// " ' 加转义符号\
-                    if let a = valueString?.contains("\""), a {
-                        if let a = valueString?.contains("\\\""), a {
-                            valueString = valueString?.replacingOccurrences(of: "\\\"", with: "\\\"")
-                        } else {
-                            valueString = valueString?.replacingOccurrences(of: "\"", with: "\\\"")
-                        }
-                    }
-                    if let a = valueString?.contains("\'"), a {
-                        if let a = valueString?.contains("\\\'"), a {
-                            valueString = valueString?.replacingOccurrences(of: "\\\'", with: "\\\'")
-                        } else {
-                            valueString = valueString?.replacingOccurrences(of: "\'", with: "\\\'")
-                        }
-                    }
-                    let finalString = "\"\(IDString ?? "❌")\" = \"\(valueString ?? "❌")\";\r\n"
-                    data?.append(finalString.data(using: .utf8) ?? Data())
-                }
+                let valueString = worksheet?.cells(atColumns: [ColumnReference(columnString)!], rows: [row]).first?.stringValue(sharedStrings)
+                guard IDString != valueString, row != 1 else { continue }
+                data?.append("\"\(IDString ?? "❌")\" = \"\(rules(valueString) ?? "❌")\";\r\n".data(using: .utf8) ?? Data())
             }
             try? data?.write(to: fileURL, options: .atomicWrite)
-            print("😀😀😀😀😀😀😀😀😀😀😀 结束")
+            print("🎉🎉🎉 :  \(lanString ?? "❌") \((lanString != nil) ? "😀" : "😭")")
         }
+    }
+    
+    /// 字符串规则匹配
+    func rules(_ string: String?) -> String? {
+        var value = string
+        // 有 " ' 加转义符号 \
+        if let a = value?.contains("\""), a {
+            if let a = value?.contains("\\\""), a {
+                value = value?.replacingOccurrences(of: "\\\"", with: "\\\"")
+            } else {
+                value = value?.replacingOccurrences(of: "\"", with: "\\\"")
+            }
+        }
+        if let a = string?.contains("\'"), a {
+            if let a = value?.contains("\\\'"), a {
+                value = value?.replacingOccurrences(of: "\\\'", with: "\\\'")
+            } else {
+                value = value?.replacingOccurrences(of: "\'", with: "\\\'")
+            }
+        }
+        return value
     }
 }
