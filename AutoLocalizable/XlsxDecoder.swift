@@ -71,9 +71,9 @@ extension XlsxDecoder {
                     }
                     let finalString = "\"\(IDString ?? "❌")\" = \"\(valueString ?? "❌")\";\r\n"
                     data?.append(finalString.data(using: .utf8) ?? Data())
-                    try? data?.write(to: fileURL, options: .atomicWrite)
                 }
             }
+            try? data?.write(to: fileURL, options: .atomicWrite)
             print("😀😀😀😀😀😀😀😀😀😀😀 结束")
         }
     }
