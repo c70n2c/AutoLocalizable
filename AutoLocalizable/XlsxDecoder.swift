@@ -65,7 +65,11 @@ extension XlsxDecoder {
             for row in 1...lastRow {
                 let IDString = worksheet?.cells(atColumns: [ColumnReference("A")!], rows: [row]).first?.stringValue(sharedStrings)
                 let valueString = worksheet?.cells(atColumns: [ColumnReference(columnString)!], rows: [row]).first?.stringValue(sharedStrings)
-                guard IDString != valueString, row != 1 else { continue }
+                guard IDString != valueString, row != 1 else {
+                    //同名字符串：
+                    //if row != 1 { print("\"\(IDString ?? "")\" = \"\(valueString ?? "")\";")}
+                    continue
+                }
                 data?.append("\"\(IDString ?? "❌")\" = \"\(rules(valueString) ?? "❌")\";\r\n".data(using: .utf8) ?? Data())
             }
             try? data?.write(to: fileURL, options: .atomicWrite)
